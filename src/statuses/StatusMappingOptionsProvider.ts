@@ -27,7 +27,6 @@ export class StatusMappingOptionsProvider {
         const followingAuthor = statusInfo.currentUserFollowsAuthor;
         const followedByAuthor = statusInfo.currentUserFollowedByAuthor;
         const userStatistics = status.author.statistics!;
-        const repostsCount = statusInfo.repostsCount;
         const commentsCount = statusInfo.commentsCount;
         let canBeReposted = !statusInfo.repostedByCurrentUser;
         const reposted = statusInfo.repostedByCurrentUser;
@@ -45,7 +44,6 @@ export class StatusMappingOptionsProvider {
             followedByAuthor,
             followingAuthor,
             userStatistics,
-            repostsCount,
             commentsCount,
             canBeReposted,
             mapReferredStatus: Boolean(mapReferredStatusOptions),
@@ -107,7 +105,6 @@ export class StatusMappingOptionsProvider {
             mapReferredStatus: Boolean(mapReferredStatusOptions),
             referredStatusOptions: mapReferredStatusOptions,
             userStatistics,
-            repostsCount,
             commentsCount,
             btfsHash: btfsHash && btfsHash.peerIp && btfsHash.peerWallet ? btfsHash : null,
             canBeReposted,

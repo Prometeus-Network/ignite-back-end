@@ -515,13 +515,6 @@ export class StatusesRepository extends Repository<Status> {
                     .where(`"referredStatusId" = status.id`)
                     .andWhere(`"statusReferenceType" = 'COMMENT'`)
             )
-            .addSelect(
-                subquery => subquery
-                    .select("count(distinct(id))", "reposts_count")
-                    .from(Status, "compared_status")
-                    .where(`"referredStatusId" = status.id`)
-                    .andWhere(`"statusReferenceType" = 'REPOST'`)
-            );
 
         if (currentUser) {
             queryBuilder = queryBuilder
@@ -583,7 +576,6 @@ export class StatusesRepository extends Repository<Status> {
             id: raw.status_id as string,
             commentsCount: Number(raw.comments_count),
             likesCount: Number(raw.likes_count),
-            repostsCount: Number(raw.reposts_count),
             currentUserFollowsAuthor: currentUser && Boolean(Number(raw.subscriptions_of_current_user_to_status_author_count)),
             currentUserFollowedByAuthor: currentUser && Boolean(Number(raw.subscriptions_of_status_author_to_current_user_count)),
             likedByCurrentUser: currentUser && Boolean(Number(raw.current_user_likes_count)),

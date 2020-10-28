@@ -24,7 +24,6 @@ export interface ToStatusResponseOptions {
     followedByAuthor: boolean,
     mapReferredStatus: boolean,
     referredStatusOptions?: Omit<ToStatusResponseOptions, "mapRepostedStatus" | "repostsCount">,
-    repostsCount: number,
     referredStatusId?: string,
     referredStatusReferenceType?: StatusReferenceType,
     btfsHash?: BtfsHash,
@@ -122,7 +121,6 @@ export class StatusesMapper {
             followingAuthor,
             mapReferredStatus,
             referredStatusOptions,
-            repostsCount,
             referredStatusId,
             referredStatusReferenceType,
             btfsHash,
@@ -147,10 +145,9 @@ export class StatusesMapper {
             revisedAt: null,
             referredStatus: mapReferredStatus ? this.toStatusResponse({
                 ...referredStatusOptions,
-                mapReferredStatus: false,
-                repostsCount: 0
+                mapReferredStatus: false
             }) : null,
-            repostsCount,
+            repostsCount: status.repostsCount,
             referredStatusId,
             btfsInfo: btfsHash && this.btfsHashesMapper.toBtfsHashResponse(btfsHash),
             commentsCount,
@@ -182,7 +179,8 @@ export class StatusesMapper {
             referredStatus,
             statusReferenceType: createStatusRequest.statusReferenceType,
             hashTags,
-            favoritesCount: 0
+            favoritesCount: 0,
+            repostsCount: 0
         }
     }
 }

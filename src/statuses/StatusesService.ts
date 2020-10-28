@@ -115,6 +115,10 @@ export class StatusesService {
             referredStatus
         );
         status = await this.statusesRepository.save(status);
+        if (status.referredStatus){
+            await this.statusesRepository.increment({ id: referredStatus.id }, "repostsCount", 1)
+            status.repostsCount += 1;
+        }
 
         return this.statusesMapper.toStatusResponseAsync(status, currentUser);
     }

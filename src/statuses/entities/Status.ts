@@ -47,6 +47,9 @@ export class Status {
     @Column()
     favoritesCount: number;
 
+    @Column()
+    repostsCount: number;
+
     @TreeParent()
     @Index()
     referredStatus?: Status;
