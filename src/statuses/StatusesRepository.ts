@@ -692,16 +692,10 @@ export class StatusesRepository extends Repository<Status> {
         if (ids.length === 0) {
             return [];
         }
-
         return this.createStatusQueryBuilder()
-            .leftJoinAndSelect(
-                this.createLastWeekLikesCountSubquery(),
-                "status_like",
-                `status_like."statusId" = status.id`
-            )
             .where("status.id in (:...ids)", {ids})
             .orderBy({
-                "likes_count": {
+                "status.\"favoritesCount\"": {
                     order: "DESC",
                     nulls: "NULLS LAST"
                 },
@@ -732,7 +726,7 @@ export class StatusesRepository extends Repository<Status> {
                     {createdAtBefore, createdAtAfter, minLikes, maxLikes}
                     )
                 .orderBy({
-                    "likes_count": {
+                    "status.\"favoritesCount\"": {
                         order: "DESC",
                         nulls: "NULLS LAST"
                     },
@@ -749,14 +743,9 @@ export class StatusesRepository extends Repository<Status> {
         }
 
         return this.createStatusQueryBuilder()
-            .leftJoinAndSelect(
-                this.createLastWeekLikesCountSubquery(),
-                "status_like",
-                `status_like."statusId" = status.id`
-            )
             .where("status.id in (:...ids)", {ids})
             .orderBy({
-                "likes_count": "DESC",
+                "status.\"favoritesCount\"": "DESC",
                 "status.\"createdAt\"": "DESC"
             })
             .getMany();
@@ -796,14 +785,9 @@ export class StatusesRepository extends Repository<Status> {
         }
 
         return this.createStatusQueryBuilder()
-            .leftJoinAndSelect(
-                this.createLastWeekLikesCountSubquery(),
-                "status_like",
-                `status_like."statusId" = status.id`
-            )
             .where("status.id in (:...ids)", {ids})
             .orderBy({
-                "likes_count": {
+                "status.\"favoritesCount\"": {
                     order: "DESC",
                     nulls: "NULLS LAST"
                 },
@@ -846,14 +830,9 @@ export class StatusesRepository extends Repository<Status> {
         }
 
         return this.createStatusQueryBuilder()
-            .leftJoinAndSelect(
-                this.createLastWeekLikesCountSubquery(),
-                "status_like",
-                `status_like."statusId" = status.id`
-            )
             .where("status.id in (:...ids)", {ids})
             .orderBy({
-                "likes_count": {
+                "status.\"favoritesCount\"": {
                     order: "DESC",
                     nulls: "NULLS LAST"
                 },
@@ -1048,15 +1027,10 @@ export class StatusesRepository extends Repository<Status> {
         }
 
         return this.createStatusQueryBuilder()
-            .leftJoinAndSelect(
-                this.createLastWeekLikesCountSubquery(),
-                "status_like",
-                `status_like."statusId" = status.id`
-            )
             .where("status.id in (:...ids)", {ids})
             .andWhere(`"filteredHashTag"."name" != :hashTag`, {hashTag: MEMEZATOR_HASHTAG})
             .orderBy({
-                "likes_count": {
+                "status.\"favoritesCount\"": {
                     order: "DESC",
                     nulls: "NULLS LAST"
                 },
